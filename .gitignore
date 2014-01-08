@@ -1,3 +1,6 @@
+# I'm building my Cmake artifacts here 
+build/*
+
 # Compiled Object files
 *.slo
 *.lo
