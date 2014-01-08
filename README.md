@@ -55,10 +55,10 @@ Clean the project:
     ├── LICENSE
     ├── README.md
     └── src
-        ├── cmdline.cxx             # process the command line options
-        ├── main.cxx                # simple mainline wrapper
-        ├── util.cxx                # util methods to prime the test
-        └── mongo_ops.cxx           # the ops to test 
+        ├── cmdline.cpp             # process the command line options
+        ├── main.cpp                # simple mainline wrapper
+        ├── util.cpp                # util methods to prime the test
+        └── mongo_ops.cpp           # the ops to test 
 
 Getting Help :
 

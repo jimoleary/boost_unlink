@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <ctype.h>
 #include <math.h>
-#include "cmdline.hpp" 
+#include "cmdline.h" 
 
 class DiskLoc {
 public:

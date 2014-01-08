@@ -8,8 +8,8 @@
 #include <boost/regex.hpp>
 
 
-#include "util.hpp"
-#include "mongo_ops.hpp"
+#include "util.h"
+#include "mongo_ops.h"
 
 nullstream logstream;
 using namespace std;

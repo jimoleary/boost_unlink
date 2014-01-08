@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 2.6.4)
 project (Unlink)
-FILE (GLOB SOURCES src/*.cxx)
+FILE (GLOB SOURCES src/*.cpp)
 
 add_executable(boost_unlink ${SOURCES})
 

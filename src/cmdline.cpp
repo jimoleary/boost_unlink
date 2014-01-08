@@ -5,7 +5,7 @@
 #include <iostream>
 #include <iterator>
 
-#include "cmdline.hpp"
+#include "cmdline.h"
 
 using namespace std;
 using namespace boost::program_options;

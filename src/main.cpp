@@ -7,8 +7,8 @@
 #include <iostream>
 #include <iterator>
 
-#include "util.hpp"
-#include "mongo_ops.hpp"
+#include "util.h"
+#include "mongo_ops.h"
 
 int main (int argc, const char *argv[])
 {
