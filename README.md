@@ -32,15 +32,18 @@ Test code for mongodb drop database
     > BOOST_ROOT=~/boost cmake .. 
     > make 
 
-## Boost_USE_STATIC_LIBS and Boost_USE_STATIC_RUNTIME are set on in the config but you can always add :
+Compiling 
+------
+
+To use Boost_USE_STATIC_LIBS and Boost_USE_STATIC_RUNTIME are set on in the config but you can always add :
 
     -DBoost_USE_STATIC_LIBS=ON -DBoost_USE_STATIC_RUNTIME=ON
 
-## To enable debug use :
+To enable debug use :
 
     -DBoost_DEBUG=on
 
-## Clean the project:
+Clean the project:
 
     > rm -rf ./build && mkdir ./build && cd ./build &&  BOOST_ROOT=/usr/local cmake ..
 
@@ -74,7 +77,8 @@ Getting Help :
       --setup               only setup the directory/files, <default to false>)
       -f [ --files ] arg    the number of files
 
-## Invoking the executable 
+Invoking the executable 
+------
 
     > sudo mkdir /data/boost_unlink
     > sudo chown <username> /data/boost_unlink
