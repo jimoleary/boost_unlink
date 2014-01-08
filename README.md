@@ -3,16 +3,18 @@ boost_unlink
 
 Test code for mongodb drop database
 
-# Ubuntu 
+# Setup install dependencies
 
-   >  sudo apt-get install cmake -y 
-   >  sudo apt-get install build-essential checkinstall -y 
+## Ubuntu 
 
-Centos 6.3:
+    >  sudo apt-get install cmake -y 
+    >  sudo apt-get install build-essential checkinstall -y 
 
-   > sudo yum install cmake -y 
+## Centos 6.3:
 
-# Install boost 1.49.0
+    > sudo yum install cmake -y 
+
+## Install boost 1.49.0
 
     > mkdir boost 
     > cd boost
@@ -23,35 +25,27 @@ Centos 6.3:
     > ./bootstrap.sh
     > ./b2 install
 
-# Build exe
+# Build Project
 
-
-    > cd unlink_test/build
+    > mkdir ./build
     > BOOST_ROOT=/usr/local cmake .. 
     > BOOST_ROOT=~/boost cmake .. 
     > make 
-    > sudo mkdir /data/boost_unlink
-    > sudo chown <username> /data/boost_unlink
-    > ./boost_unlink testing --files 100  -vvvvv 
-    > ./boost_unlink testing --files 100  -vvvvv --directoryperdb
-    > ./boost_unlink testing --files 100   --directoryperdb --dbpath=/data/boost_unlink
-    > ./boost_unlink testing --files 100   --dbpath=/data/boost_unlink
-    > ls /tmp/boost_unlink/testing
 
-Boost_USE_STATIC_LIBS and Boost_USE_STATIC_RUNTIME are set on in the config but you can always add :
+## Boost_USE_STATIC_LIBS and Boost_USE_STATIC_RUNTIME are set on in the config but you can always add :
 
     -DBoost_USE_STATIC_LIBS=ON -DBoost_USE_STATIC_RUNTIME=ON
 
-To enable debug use :
+## To enable debug use :
 
     -DBoost_DEBUG=on
 
-Clean the project:
+## Clean the project:
 
     > rm -rf ./build && mkdir ./build && cd ./build &&  BOOST_ROOT=/usr/local cmake ..
 
 
-Source 
+# Source 
 
     .
     ├── CMakeLists.txt              # cmake config file
@@ -80,3 +74,12 @@ Getting Help :
       --setup               only setup the directory/files, <default to false>)
       -f [ --files ] arg    the number of files
 
+## Invoking the executable 
+
+    > sudo mkdir /data/boost_unlink
+    > sudo chown <username> /data/boost_unlink
+    > ./boost_unlink testing --files 6  -vvvvv 
+    > ./boost_unlink testing --files 6  -vvvvv --directoryperdb
+    > ./boost_unlink testing --files 6   --directoryperdb --dbpath=/data/boost_unlink
+    > ./boost_unlink testing --files 6   --dbpath=/data/boost_unlink
+    > ls /tmp/boost_unlink/testing
