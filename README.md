@@ -21,15 +21,23 @@ Test code for mongodb drop database
     > wget -c 'http://sourceforge.net/projects/boost/files/boost/1.49.0/boost_1_49_0.tar.bz2/download'
     > tar xf boost_1_49_0.tar.bz2
     > cd boost_1_49_0/
-    > ./bootstrap.sh --prefix=~/boost
+
+If you want to install boost locally then set the following env var.
+If you do not set it, then you may need to run the install with sudo.
+
+    > export BOOST_ROOT=$HOME/boost 
+    > mkdir $BOOST_ROOT
+
+    > ./bootstrap.sh --prefix=${BOOST_ROOT:=/usr/local}
     > ./bootstrap.sh
     > ./b2 install
 
 # Build Project
 
+Please ensure you have set BOOST_ROOT in this shell
+
     > mkdir ./build
-    > BOOST_ROOT=/usr/local cmake .. 
-    > BOOST_ROOT=~/boost cmake .. 
+    > cmake .. 
     > make 
 
 Compiling 
@@ -45,7 +53,9 @@ To enable debug use :
 
 Clean the project:
 
-    > rm -rf ./build && mkdir ./build && cd ./build &&  BOOST_ROOT=/usr/local cmake ..
+Set the BOOST_ROOT to the correct value.
+
+    > rm -rf ./build && mkdir ./build && cd ./build &&  cmake ..
 
 
 # Source 
