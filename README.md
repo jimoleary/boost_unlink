@@ -35,16 +35,6 @@ To install for a all users (needs sudo)
     > ./bootstrap.sh
     > sudo ./b2 install
 
-If you want to install boost locally then set the following env var.
-If you do not set it, then you may need to run the install with sudo.
-
-    > export BOOST_ROOT=$HOME/boost 
-    > mkdir $BOOST_ROOT
-
-    > ./bootstrap.sh --prefix=${BOOST_ROOT:=/usr/local}
-    > ./bootstrap.sh
-    > ./b2 install
-
 # Build Project
 
 Please ensure you have set BOOST_ROOT in this shell
