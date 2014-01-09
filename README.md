@@ -19,38 +19,37 @@ Test code for mongodb drop database
 
 ## Install boost 1.49.0
 
-    > wget -c 'http://sourceforge.net/projects/boost/files/boost/1.49.0/boost_1_49_0.tar.bz2/download'
+    > wget -c 'http://sourceforge.net/projects/boost/files/boost/1.49.0/boost_1_49_0.tar.bz2/download' -O boost_1_49_0.tar.bz2
     > tar xf boost_1_49_0.tar.bz2
     > cd boost_1_49_0/
 
 To install for a single user locally
-    > export BOOST_ROOT=$HOME/boost 
+
+    > export BOOST_ROOT=$HOME/boost
     > mkdir $BOOST_ROOT
     > ./bootstrap.sh --prefix=$BOOST_ROOT
     > ./b2 install
 
-To install for a all users (needs sudo)
+To install for all users (needs sudo)
     > ./bootstrap.sh
     > sudo ./b2 install
 
 # Build Project
 
-Please ensure you have set BOOST_ROOT in this shell
+Please ensure you have set BOOST_ROOT in this shell (if you installed locally)
 
     > mkdir ./build
+    > cd build
     > cmake .. 
     > make 
 
-Compiling 
-------
-
-To use Boost_USE_STATIC_LIBS and Boost_USE_STATIC_RUNTIME are set on in the config but you can always add :
+Optional: to use Boost_USE_STATIC_LIBS and Boost_USE_STATIC_RUNTIME are set on in the config but you can always add:
 
     -DBoost_USE_STATIC_LIBS=ON -DBoost_USE_STATIC_RUNTIME=ON
 
-To enable debug use :
+To enable debug use:
 
-    -DBoost_DEBUG=on
+    > cmake .. -DBoost_DEBUG=on
 
 Clean the project:
 
