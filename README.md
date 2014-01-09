@@ -30,7 +30,7 @@ To install for a single user locally
     > ./bootstrap.sh --prefix=$BOOST_ROOT
     > ./b2 install
 
-To install for a all users (needs sudo)
+To install for all users (needs sudo)
 
     > ./bootstrap.sh
     > sudo ./b2 install
