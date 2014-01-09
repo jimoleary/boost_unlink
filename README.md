@@ -7,12 +7,15 @@ Test code for mongodb drop database
 
 ## Ubuntu 
 
-    >  sudo apt-get install cmake -y 
-    >  sudo apt-get install build-essential checkinstall -y 
-
+    > sudo apt-get install cmake -y 
+    > sudo apt-get install build-essential checkinstall -y
+    > sudo apt-get install libboost-all-dev -y
+    > sudo apt-get install libbz2-dev
+  
 ## Centos 6.3:
 
-    > sudo yum install cmake -y 
+    > sudo yum install cmake -y
+    > sudo yum install libboost-devel -y
 
 ## Install boost 1.49.0
 
