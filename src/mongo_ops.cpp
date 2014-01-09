@@ -20,7 +20,7 @@ void _applyOpToDataFiles( const char *database, FileOp &fo, bool afterAllocator,
     c += '.';
     fs::path p(path);
     if (storageGlobalParams.directoryperdb)
-        p /= database;
+        p = p / database;
     fs::path q;
     q = p / (c+"namespace");
     bool ok = false;
