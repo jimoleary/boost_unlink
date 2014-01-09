@@ -7,12 +7,15 @@ Test code for mongodb drop database
 
 ## Ubuntu 
 
-    >  sudo apt-get install cmake -y 
-    >  sudo apt-get install build-essential checkinstall -y 
-
+    > sudo apt-get install cmake -y 
+    > sudo apt-get install build-essential checkinstall -y
+    > sudo apt-get install libboost-all-dev -y
+    > sudo apt-get install libbz2-dev
+  
 ## Centos 6.3:
 
-    > sudo yum install cmake -y 
+    > sudo yum install cmake -y
+    > sudo yum install libboost-devel -y
 
 ## Install boost 1.49.0
 
@@ -28,28 +31,25 @@ To install for a single user locally
     > ./b2 install
 
 To install for all users (needs sudo)
-
     > ./bootstrap.sh
     > sudo ./b2 install
 
 # Build Project
 
-Please ensure you have set BOOST_ROOT in this shell
+Please ensure you have set BOOST_ROOT in this shell (if you installed locally)
 
     > mkdir ./build
+    > cd build
     > cmake .. 
     > make 
 
-Compiling 
-------
-
-To use Boost_USE_STATIC_LIBS and Boost_USE_STATIC_RUNTIME are set on in the config but you can always add :
+Optional: to use Boost_USE_STATIC_LIBS and Boost_USE_STATIC_RUNTIME are set on in the config but you can always add:
 
     -DBoost_USE_STATIC_LIBS=ON -DBoost_USE_STATIC_RUNTIME=ON
 
-To enable debug use :
+To enable debug use:
 
-    -DBoost_DEBUG=on
+    > cmake .. -DBoost_DEBUG=on
 
 Clean the project:
 
