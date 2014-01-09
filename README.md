@@ -16,12 +16,9 @@ Test code for mongodb drop database
 
 ## Install boost 1.49.0
 
-    > mkdir boost 
-    > cd boost
     > wget -c 'http://sourceforge.net/projects/boost/files/boost/1.49.0/boost_1_49_0.tar.bz2/download' -O boost_1_49_0.tar.bz2
     > tar xf boost_1_49_0.tar.bz2
     > cd boost_1_49_0/
-
 
 To install for a single user locally
 
