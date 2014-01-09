@@ -18,19 +18,22 @@ Test code for mongodb drop database
 
     > mkdir boost 
     > cd boost
-    > wget -c 'http://sourceforge.net/projects/boost/files/boost/1.49.0/boost_1_49_0.tar.bz2/download'
+    > wget -c 'http://sourceforge.net/projects/boost/files/boost/1.49.0/boost_1_49_0.tar.bz2/download' -O boost_1_49_0.tar.bz2
     > tar xf boost_1_49_0.tar.bz2
     > cd boost_1_49_0/
 
-If you want to install boost locally then set the following env var.
-If you do not set it, then you may need to run the install with sudo.
 
-    > export BOOST_ROOT=$HOME/boost 
+To install for a single user locally
+
+    > export BOOST_ROOT=$HOME/boost
     > mkdir $BOOST_ROOT
-
-    > ./bootstrap.sh --prefix=${BOOST_ROOT:=/usr/local}
-    > ./bootstrap.sh
+    > ./bootstrap.sh --prefix=$BOOST_ROOT
     > ./b2 install
+
+To install for all users (needs sudo)
+
+    > ./bootstrap.sh
+    > sudo ./b2 install
 
 # Build Project
 
