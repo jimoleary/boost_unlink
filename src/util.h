@@ -12,6 +12,7 @@
 #if defined __linux__ 
 #include <linux/falloc.h>
 #endif
+#include "cmdline.h"
 
 #define MB(x) ((x) * 1024L *1024L)
 #define EMPTY -2LL
@@ -53,4 +54,8 @@ extern nullstream logstream;
 
 #define verify(x) if(!(x)){std::cout << "verify failed"<<endl;}
 
-bool setup();
+/**
+ * setup the test dir structure
+ * 
+ */
+bool setup(StorageGlobalParams &params=storageGlobalParams);

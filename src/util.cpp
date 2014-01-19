@@ -16,12 +16,25 @@ using namespace std;
 using namespace boost::filesystem;
 
 bool checkPath(const path p){
-    static const boost::regex e("^.*\\.(ns|\\d+)$", boost::regex::perl);
+    //
+    // we should back off if the directory contains
+    //    * name.ns        <- database namespace
+    //    * name.0 ...     <- database extent file
+    //    * mongod.lock   <- lock file 
+    //    * j._0 ..        <- journal file(s)
+    static const boost::regex files("^.*(\\.(ns|\\d+)|mongod.lock|j\\._\\d+)$", boost::regex::perl);
+
+    // we should back off if the directory contains
+    //    * journal        <- journal directory per db
+    //    * local          <- local drectory per db
+    static const boost::regex directories("^.*/(journal|local)$", boost::regex::perl);
+
     INFO() << "checkPath " << p << " exists " << exists(p) << endl;
     if (exists(p)){
         DEBUG() << "checkPath " << p << " is_regular_file " << is_regular_file(p) << endl;
         if(is_regular_file(p)) {
             ERR() << p << " is a file" << endl;
+            std::cout << "checkPath(" << p << ") -> returning false" << std::endl;
             return false;
         }
         DEBUG() << "checkPath " << p << " is_directory " << is_directory(p) << endl;
@@ -31,14 +44,17 @@ bool checkPath(const path p){
                 const char*  name = dir_itr->path().string().c_str();
                 DEBUG() << "checkPath " << name 
                         << " is_regular_file " << is_regular_file( dir_itr->status()) 
-                        << " match " << boost::regex_match(name, e) << endl;
-                if ( is_regular_file( dir_itr->status() ) && boost::regex_match(name, e) ) {
+                        << " match " << boost::regex_match(name, files) << endl;
+                if ( (is_regular_file( dir_itr->status() ) && boost::regex_match(name, files)) ||
+                     (is_directory( dir_itr->status() ) && boost::regex_match(name, directories))) {
                     ERR() << dir_itr->path() << " exists" << endl;
+                    std::cout << "checkPath(" << p << ") -> returning false" << std::endl;
                     return false;
                 }
             }
         }
     }    
+    std::cout << "checkPath(" << p << ") -> returning true" << std::endl;
     return true;
 }
 bool touch(const char *name,off_t length){
@@ -85,36 +101,52 @@ bool touch(const char *name,off_t length){
         return 0 == ftruncate(fd, length);
 #endif
     }
+    std::cout << "touch(" << name << ") -> returning true" << std::endl;
     return true;
 }
 
-bool setup(){
-    path p(storageGlobalParams.dbpath);
+bool setup(StorageGlobalParams &params){
+    path p(params.dbpath);
+
+    if(!checkPath(p)){
+        std::cout << "checkPath(" << p << ") -> false" << std::endl;
+        return false;
+    }
+
+
+    p = p / params.name;
+    params.dbpath = p.c_str();
+    if (exists(p) && is_regular_file(p)) {
+        ERR() << p << "is a file  " << endl;
+        return false;
+    } else {
+        if (!exists(p) && !create_directories(p)) {
+            ERR() << "Unable to create " << p << endl;
+            return false;
+        }
+    }
+
+    if (params.directoryperdb) {
+        p /= params.dbname;
+    }
 
     if(!checkPath(p)){
         return false;
     }
 
-    if (storageGlobalParams.directoryperdb) {
-        p /= storageGlobalParams.dbname;
-    }
-    if(!checkPath(p)){
-        return false;
-    }
-
-    string c = storageGlobalParams.dbname;
+    string c = params.dbname;
     c += '.';
     
-    if (create_directories(p))
-        cout << "Success created " << p << endl;
-    
+    if (create_directories(p)) {
+        TRACE() << "Success created " << p << endl;
+    }
     path q;
-    q = p / (storageGlobalParams.dbname+".namespace");
+    q = p / (params.dbname+".namespace");
     TRACE() << "creating " << q << endl;
-    touch(q.string().c_str(),  storageGlobalParams.preallocate ? MB(16L) : EMPTY);
+    touch(q.string().c_str(),  params.preallocate ? MB(16L) : EMPTY);
     TRACE() << "created " << q << endl;
     
-    for(int i = 0; i< storageGlobalParams.files; i++){
+    for(int i = 0; i< params.files; i++){
         off_t size = MB(64L);
         int pw = i;
         stringstream ss;
@@ -125,9 +157,9 @@ bool setup(){
             pw = 5;
         }
         size = size * pow(2,pw);
-        touch(q.string().c_str(), storageGlobalParams.preallocate ? size : EMPTY);
+        touch(q.string().c_str(), params.preallocate ? size : EMPTY);
         TRACE() << "created " << q << endl;
     }
-    INFO() << "dname " << storageGlobalParams.dbname << endl;
+    INFO() << "dname " << params.dbname << endl;
     return true;
 }

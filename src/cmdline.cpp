@@ -13,7 +13,7 @@ using namespace boost::program_options;
 // Global params 
 StorageGlobalParams storageGlobalParams;
 
-int StorageGlobalParams::processCmdLine(int ac, const char** av)
+bool StorageGlobalParams::processCmdLine(int ac, const char** av, bool &success)
 {
     try {
         options_description hidden("Hidden options");
@@ -30,6 +30,7 @@ int StorageGlobalParams::processCmdLine(int ac, const char** av)
             ("verbose,v", "be more verbose (include multiple times for more verbosity e.g. -vvvvv)")
             ("dbpath",value(&storageGlobalParams.dbpath), "the target directory")
             ("dryrun", "do a dryrun")
+            ("name",value(&storageGlobalParams.name)->default_value("_boost_unlink"), "test run name, defaults to '_boost_unlink'. This is the name of the wrapper directory that will be created. This is to mitigate against deleting any files that should not be deleted")
             ("preallocate", "preallocate files pf the correct sizes")
             ("directoryperdb","each database will be stored in a separate directory, <default to false>)")
             ("setup","only setup the directory/files, <default to false>)")
@@ -64,7 +65,7 @@ int StorageGlobalParams::processCmdLine(int ac, const char** av)
 
         if (vm.count("help")) {
             cout << visible << "\n";
-            return 0;
+            return false;
         }
 
         for (string s = "vv"; s.length() <= 12; s.append("v")) {
@@ -97,7 +98,8 @@ int StorageGlobalParams::processCmdLine(int ac, const char** av)
     }
     catch(exception& e){
         cout << e.what() << "\n";
-        return 1;
+        success = false;
+        return false;
     }    
-    return 0;
+    return true;
 }

@@ -12,11 +12,14 @@
 
 int main (int argc, const char *argv[])
 {
-    storageGlobalParams.processCmdLine(argc,argv);
-    if(setup()  && !storageGlobalParams.onlysetup) {
-        DEBUG() << "calling delete" << std::endl;
-        _deleteDataFiles(storageGlobalParams.dbname.c_str());
+    bool success = true;
+    if(storageGlobalParams.processCmdLine(argc,argv, success)) {
+        success = setup() ;
+        if(success && !storageGlobalParams.onlysetup) {
+            DEBUG() << "calling delete" << std::endl;
+            _deleteDataFiles(storageGlobalParams.dbname.c_str());
+        }
     }
-    TRACE() << "exiting" << std::endl;
-    return 0;
+    DEBUG() << "exiting (" << success << ") " << (success ? 0 : 1) << std::endl;
+    return success ? 0 : 1;
 }

@@ -25,7 +25,8 @@ public:
         dryrun(false),
         onlysetup(false),
         preallocate(false),
-        dbname("test")
+        dbname("test"),
+        name("_boost_unlink")
     {
     }        
     int files;
@@ -35,8 +36,9 @@ public:
     bool preallocate;
     std::string dbname;
     std::string dbpath;
+    std::string name;
     bool directoryperdb;
-    int processCmdLine(int ac, const char** av);
+    bool processCmdLine(int ac, const char** av, bool &success);
     
 };
 
