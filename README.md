@@ -103,9 +103,9 @@ Testing the executable
 ------
 
 The following should output 8 (or whatever the  value of 
-```echo $(( $(find ../test/db/_boost_unlink -type d -maxdepth 1 -mindepth 1| wc -l) / 2))``` is) :
+```echo $(( $(find ../test/db -maxdepth 1 -mindepth 1  -type d| wc -l) / 2))``` is) :
 
-    for l in $(find ../test/db -type d -maxdepth 1 -mindepth 1) ; do
+    for l in $(find ../test/db  -maxdepth 1 -mindepth 1 -type d) ; do
          ./boost_unlink testing --files 6  --dbpath=$l || echo "expected failure"
     done | grep "expected failure" | wc -l
 
