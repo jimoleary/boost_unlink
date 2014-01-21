@@ -11,9 +11,8 @@ function traceit(){
 }
 
 function test-same-dir-unlink(){
-  local location=${1:-/tmp/strace}
+  local location=${1}
   if  [[ $location =~ ^--.* ]] || [[ $location == "" ]] ; then
-      echo "here "
       location=/tmp/strace
   else
       shift
@@ -25,9 +24,8 @@ function test-same-dir-unlink(){
 }
 
 function test-directoryperdb-unlink(){
-  local location=${1:-/tmp/strace}
+  local location=${1}
   if  [[ $location =~ ^--.* ]] || [[ $location == "" ]] ; then
-      echo "here "
       location=/tmp/strace
   else
       shift

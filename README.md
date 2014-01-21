@@ -15,7 +15,6 @@ Test code for mongodb drop database
 ## Centos 6.3:
 
     > sudo yum install cmake -y
-    > sudo yum install libboost-devel -y
 
 ## Install boost 1.49.0
 
@@ -109,7 +108,7 @@ The following should output 8 (or whatever the  value of
          ./boost_unlink testing --files 6  --dbpath=$l || echo "expected failure"
     done | grep "expected failure" | wc -l
 
-    for l in $(find ../test/db -type d -maxdepth 1 -mindepth 1) ; do
+    for l in $(find ../test/db -maxdepth 1 -mindepth 1  -type d) ; do
          ./boost_unlink testing --files 6  --dbpath=$l  --name=_test || echo "expected failure"
     done | grep "expected failure" | wc -l
 
